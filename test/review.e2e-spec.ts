@@ -42,6 +42,16 @@ describe('AppController (e2e)', () => {
       });
   });
 
+  it('/review/create (POST) - fail', (done) => {
+    request(app.getHttpServer())
+      .post('/review/create')
+      .send({ ...testDto, rating: -1 })
+      .expect(400)
+      .then(({ body }: request.Response) => {
+        done();
+      });
+  });
+
   it('/review/byProduct/:productId (GET) - success', (done) => {
     request(app.getHttpServer())
       .get('/review/byProduct/' + productId)
